@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OpenRouter Code Translator
 
 Convert source code from one language to another directly in VS Code using a multi-model OpenRouter ensemble.
@@ -41,3 +42,7 @@ You can also use the **Code Translator** activity bar view and click:
 - Project conversion skips files in `node_modules`, `.git`, and `converted`.
 - Very large files are skipped in project mode for stability.
 - Conversion quality depends on model availability and API responses.
+=======
+# ai-code-converter
+AI-powered VS Code extension to convert code between multiple programming languages using OpenRouter and multiple AI models.
+>>>>>>> 1c5da2e5f379f818e87b0b061dc83971be675fb2
