@@ -1,9 +1,11 @@
-# Change Log
+# Changelog
 
-All notable changes to the "helloworld" extension will be documented in this file.
+All notable changes to **Code Translator** are documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.0.1] - 2026-04-30
 
-## [Unreleased]
-
-- Initial release
+- Initial public release.
+- Added file and project conversion workflows.
+- Added multi-model OpenRouter ensemble conversion.
+- Added output cleaning, validation, scoring, and retry logic.
+- Added project structure-preserving output in `converted/`.

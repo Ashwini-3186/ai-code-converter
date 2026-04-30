@@ -1,14 +1,14 @@
 {
-  "name": "openrouter-code-translator",
-  "displayName": "OpenRouter Code Translator",
-  "description": "Convert files or full projects across multiple programming languages using a multi-model OpenRouter AI system",
+  "name": "vini-openrouter-code-translator",
+  "displayName": "Vini OpenRouter Code Translator",
+  "description": "AI code converter for file and project translation across multiple languages using OpenRouter ensemble models",
   "version": "0.0.1",
   "publisher": "ashwini-codes",
   "engines": {
     "vscode": "^1.80.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
   "keywords": [
     "ai",
