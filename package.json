@@ -1,15 +1,30 @@
 {
   "name": "openrouter-code-translator",
   "displayName": "OpenRouter Code Translator",
-  "description": "Convert files or full projects across 14 languages using a multi-model OpenRouter ensemble",
+  "description": "Convert files or full projects across multiple programming languages using a multi-model OpenRouter AI system",
   "version": "0.0.1",
+  "publisher": "ashwini-codes",
   "engines": {
-    "vscode": "^1.116.0"
+    "vscode": "^1.80.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "ai",
+    "code-converter",
+    "openrouter",
+    "translation",
+    "vscode-extension",
+    "multi-language",
+    "developer-tools"
+  ],
+  "homepage": "https://github.com/Ashwini-3186/ai-code-converter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ashwini-3186/ai-code-converter.git"
+  },
+  "license": "MIT",
   "main": "./src/extension.js",
   "contributes": {
     "commands": [
@@ -26,8 +41,8 @@
       "activitybar": [
         {
           "id": "code-translator-sidebar",
-          "icon": "media/icon.svg",
-          "title": "Code Translator"
+          "title": "Code Translator",
+          "icon": "media/icon.svg"
         }
       ]
     },
@@ -41,25 +56,9 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
-    "@types/vscode": "^1.116.0",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2",
-    "eslint": "^9.39.3",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1"
+    "vscode:prepublish": "echo no build needed"
   },
   "dependencies": {
-    "@openrouter/sdk": "^0.12.22",
     "dotenv": "^17.4.2"
   }
 }
