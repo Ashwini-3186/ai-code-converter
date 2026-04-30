@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--vscode-font-family);
+            padding: 14px;
+            color: var(--vscode-foreground);
+            background: var(--vscode-sideBar-background);
+        }
+        .container { display: flex; flex-direction: column; gap: 12px; }
+        .title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+        .hint { font-size: 11px; color: var(--vscode-descriptionForeground); }
+        label { font-size: 11px; color: var(--vscode-descriptionForeground); margin-bottom: 4px; display: block; }
+        select, button {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid var(--vscode-input-border);
+            background: var(--vscode-input-background);
+            color: var(--vscode-input-foreground);
+            padding: 8px 10px;
+            font-size: 12px;
+        }
+        button {
+            cursor: pointer;
+            background: var(--vscode-button-background);
+            color: var(--vscode-button-foreground);
+            border: none;
+            font-weight: 600;
+        }
+        button.secondary {
+            background: var(--vscode-button-secondaryBackground);
+            color: var(--vscode-button-secondaryForeground);
+        }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .status {
+            font-size: 12px;
+            line-height: 1.4;
+            padding: 9px;
+            border-radius: 6px;
+            background: var(--vscode-editorWidget-background);
+            border: 1px solid var(--vscode-widget-border);
+        }
+        .status.ok { color: #4ec9b0; }
+        .status.err { color: #f14c4c; }
+        .status.run { color: #dcdcaa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">AI Code Converter</div>
+        <div class="hint">OpenRouter ensemble: Claude + GPT-4o + DeepSeek</div>
+
+        <div>
+            <label for="language">Target Language</label>
+            <select id="language">
+                <option>JavaScript</option>
+                <option>TypeScript</option>
+                <option>Python</option>
+                <option>Java</option>
+                <option>C++</option>
+                <option>C</option>
+                <option>C#</option>
+                <option>Go</option>
+                <option>Rust</option>
+                <option>PHP</option>
+                <option>Kotlin</option>
+                <option>Swift</option>
+                <option>Ruby</option>
+                <option>Scala</option>
+            </select>
+        </div>
+
+        <button id="convertFile" class="secondary">Convert File</button>
+        <button id="convertProject">Convert Project</button>
+
+        <div id="status" class="status ok">Ready</div>
+    </div>
+
+    <script>
+        const vscode = acquireVsCodeApi();
+        const language = document.getElementById('language');
+        const convertFile = document.getElementById('convertFile');
+        const convertProject = document.getElementById('convertProject');
+        const status = document.getElementById('status');
+
+        function setStatus(type, message) {
+            status.className = `status ${type}`;
+            status.textContent = message;
+        }
+
+        function setBusy(busy) {
+            convertFile.disabled = busy;
+            convertProject.disabled = busy;
+        }
+
+        convertFile.addEventListener('click', () => {
+            setBusy(true);
+            setStatus('run', 'Converting current file...');
+            vscode.postMessage({ command: 'convertFile', language: language.value });
+        });
+
+        convertProject.addEventListener('click', () => {
+            setBusy(true);
+            setStatus('run', 'Converting project...');
+            vscode.postMessage({ command: 'convertProject', language: language.value });
+        });
+
+        window.addEventListener('message', (event) => {
+            const msg = event.data;
+            if (msg.type === 'status') {
+                setStatus('run', msg.message || 'Working...');
+            }
+            if (msg.type === 'complete') {
+                setBusy(false);
+                setStatus('ok', msg.message || 'Done');
+            }
+            if (msg.type === 'error') {
+                setBusy(false);
+                setStatus('err', msg.message || 'Failed');
+            }
+        });
+    </script>
+</body>
+</html>
